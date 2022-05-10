@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <title>HOME</title>
+  </head>
+  <body class="body_home">
+    <section class="home_section_principal">
+      <h1 class="titulo_meus_recados">Meus Recados</h1>
+
+      <div class="adicionar_info">
+        <input
+          class="input_descricao"
+          type="text"
+          name="addDescricao"
+          id="addDescricao"
+          placeholder="Descrição"
+        />
+        <div>
+          <input
+            type="text"
+            name="addDetalhamento"
+            id="addDetalhamento"
+            placeholder="Detalhamento"
+          />
+
+          <input type="button" value="Salvar" id="btnSalvar" name="btnSalvar" />
+        </div>
+      </div>
+      <br />
+      <div class="tabela_div"></div>
+      <table class="tabela" id="tabela">
+        <tr class="primeira_linha_tabela" id="linha_1">
+          <td style="width: 5vw">#</td>
+          <td style="width: 20vw">Descrição</td>
+          <td style="width: 30vw">Detalhamento</td>
+          <td style="width: 15vw">Ação</td>
+        </tr>
+      </table>
+    </section>
+
+    <script src="./JS/home.js"></script>
+  </body>
+</html>

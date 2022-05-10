@@ -1,0 +1,3 @@
+FOCO NOS DETALHES:
+ - logo na abinha (tipo do youtube)
+ - Arrumar uma solucao para nao escrever toda hora os HTML's das linha

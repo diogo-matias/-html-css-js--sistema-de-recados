@@ -15,27 +15,33 @@
           <h1 class="nova-conta">NOVA CONTA</h1>
         </div>
 
-        <form class="caixa-nova-conta" action="nova-conta">
+        <form class="caixa-nova-conta" id="form-register">
           <label for="usuario">
             <input
+              required
+              name="usuario"
               class="usuario-senha registro"
               type="text"
-              id="usuario"
+              id="usuario-registro"
               class="usuario"
               placeholder="Usuário"
             />
           </label>
           <label for="senha">
             <input
+              required
+              name="senha"
               class="usuario-senha registro"
               type="password"
-              id="password"
+              id="password-registro"
               class="password"
               placeholder="Senha"
             />
           </label>
           <label for="confirmar-senha">
             <input
+              required
+              name="senha_confirmacao"
               class="usuario-senha registro"
               type="password"
               id="password"
@@ -56,5 +62,7 @@
         <a href="./index.html"> < voltar ao inicio</a>
       </section>
     </section>
+
+    <script src="./JS/register.js"></script>
   </body>
 </html>
