@@ -65,45 +65,41 @@ function carregarHTMLTabela() {
   });
 
   const linhas = document.querySelectorAll(".linha");
-  linhas.forEach((linha) => {
-    return linha.addEventListener("click", apagarOuEditar);
-  });
+  linhas.forEach((linha) => linha.addEventListener("click", apagarOuEditar));
 }
 carregarHTMLTabela();
 
-let contadorCliques = 0;
 let linha = 0;
+function salvarDescricao(elemento) {
+  infosBD = JSON.parse(localStorage.getItem("infosBD"));
+  infosBD[linha - 1].descricao = `${elemento.value}`;
+  localStorage.setItem("infosBD", JSON.stringify(infosBD));
+}
+function salvarDestalhamento(elemento) {
+  infosBD = JSON.parse(localStorage.getItem("infosBD"));
+  infosBD[linha - 1].detalhamento = `${elemento.value}`;
+  localStorage.setItem("infosBD", JSON.stringify(infosBD));
+}
+
+function estiloPadrao(elemento) {
+  elemento.setAttribute("disabled", "true");
+  elemento.setAttribute("class", "input");
+}
+
+function estiloInputHabilitado(elemento) {
+  elemento.removeAttribute("disabled");
+  elemento.setAttribute("class", "input input_habilitado ");
+}
+
+let contadorCliques = 0;
 function apagarOuEditar(click) {
   const linhaElementos = document.getElementsByName(click.target.name);
   linha = click.target.name;
-
-  function salvarDescricao(elemento) {
-    infosBD = JSON.parse(localStorage.getItem("infosBD"));
-    infosBD[linha - 1].descricao = `${elemento.value}`;
-    localStorage.setItem("infosBD", JSON.stringify(infosBD));
-  }
-  function salvarDestalhamento(elemento) {
-    infosBD = JSON.parse(localStorage.getItem("infosBD"));
-    infosBD[linha - 1].detalhamento = `${elemento.value}`;
-    localStorage.setItem("infosBD", JSON.stringify(infosBD));
-  }
-
-  function estiloPadrao(elemento) {
-    elemento.setAttribute("disabled", "true");
-    elemento.setAttribute("class", "input");
-  }
-
-  function estiloInputHabilitado(elemento) {
-    elemento.removeAttribute("disabled");
-    elemento.setAttribute("class", "input input_habilitado ");
-  }
 
   if (click.target.className === "btn editar") {
     contadorCliques++;
 
     if (click.target.textContent === "Editar") {
-      console.log("entrou Editar");
-
       estiloInputHabilitado(linhaElementos[0]);
       estiloInputHabilitado(linhaElementos[1]);
 
@@ -113,7 +109,6 @@ function apagarOuEditar(click) {
     }
 
     if (click.target.textContent === "Salvar") {
-      console.log("entrou salvar");
       estiloPadrao(linhaElementos[0]);
       salvarDescricao(linhaElementos[0]);
 
@@ -138,10 +133,10 @@ function apagarOuEditar(click) {
   }
 }
 
-function recuperarElementos() {
-  const btnSim = document.getElementById("btnSimConfirmacao");
-  btnNao = document.getElementById("btnNaoConfirmacao");
-}
+// function recuperarElementos() {
+//   const btnSim = document.getElementById("btnSimConfirmacao");
+//   btnNao = document.getElementById("btnNaoConfirmacao");
+// }
 
 function adicionarHTMLConfirmacao() {
   const sectionPrincipal = document.getElementById("sectionPrincipal");
