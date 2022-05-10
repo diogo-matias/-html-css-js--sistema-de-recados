@@ -5,7 +5,6 @@ if (infosBD === null) {
 }
 
 const tabela = document.getElementById("tabela");
-const tbody = document.getElementById("tbody");
 
 const btnSalvar = document.getElementById("btnSalvar");
 const descricao = document.getElementById("addDescricao");
@@ -22,8 +21,8 @@ function salvar() {
   infosBD.push(informacoes);
 
   localStorage.setItem("infosBD", JSON.stringify(infosBD));
-  // ACIONANDO A LINHA NO HTML DA TABELA
 
+  // ACIONANDO A LINHA NO HTML DA TABELA
   carregarHTMLTabela();
 }
 
@@ -66,61 +65,135 @@ function carregarHTMLTabela() {
   });
 
   const linhas = document.querySelectorAll(".linha");
-
   linhas.forEach((linha) => {
     return linha.addEventListener("click", apagarOuEditar);
   });
-  console.log(linhas);
 }
 carregarHTMLTabela();
 
+let contadorCliques = 0;
+let linha = 0;
 function apagarOuEditar(click) {
   const linhaElementos = document.getElementsByName(click.target.name);
-  const linha = click.target.name;
+  linha = click.target.name;
 
-  function novoEstilo(event) {
-    event.target.setAttribute("disabled", "true");
-    event.target.setAttribute("class", "input");
-  }
-
-  function salvarDescricao(event) {
-    console.log(event.target.value);
-
+  function salvarDescricao(elemento) {
     infosBD = JSON.parse(localStorage.getItem("infosBD"));
-    infosBD[linha - 1].descricao = `${event.target.value}`;
+    infosBD[linha - 1].descricao = `${elemento.value}`;
     localStorage.setItem("infosBD", JSON.stringify(infosBD));
   }
-  function salvarDestalhamento(event) {
-    console.log(event.target.value);
-    console.log("salvarDestalhamento");
-
+  function salvarDestalhamento(elemento) {
     infosBD = JSON.parse(localStorage.getItem("infosBD"));
-    infosBD[linha - 1].detalhamento = `${event.target.value}`;
+    infosBD[linha - 1].detalhamento = `${elemento.value}`;
     localStorage.setItem("infosBD", JSON.stringify(infosBD));
+  }
+
+  function estiloPadrao(elemento) {
+    elemento.setAttribute("disabled", "true");
+    elemento.setAttribute("class", "input");
+  }
+
+  function estiloInputHabilitado(elemento) {
+    elemento.removeAttribute("disabled");
+    elemento.setAttribute("class", "input input_habilitado ");
   }
 
   if (click.target.className === "btn editar") {
-    linhaElementos[0].removeAttribute("disabled");
-    linhaElementos[0].setAttribute("class", "input input_habilitado ");
-    linhaElementos[0].addEventListener("blur", novoEstilo);
-    linhaElementos[0].addEventListener("blur", salvarDescricao);
+    contadorCliques++;
 
-    linhaElementos[1].removeAttribute("disabled");
-    linhaElementos[1].setAttribute("class", "input input_habilitado ");
-    linhaElementos[1].addEventListener("blur", novoEstilo);
-    linhaElementos[1].addEventListener("blur", salvarDestalhamento);
+    if (click.target.textContent === "Editar") {
+      console.log("entrou Editar");
 
-    console.log(linhaElementos);
-    console.log(linhaElementos[2].textContent);
+      estiloInputHabilitado(linhaElementos[0]);
+      estiloInputHabilitado(linhaElementos[1]);
 
-    linhaElementos[2].textContent = "Salvar";
-    linhaElementos[3].textContent = "Descartar";
+      linhaElementos[2].textContent = "Salvar";
+      linhaElementos[3].textContent = "Descartar";
+      return;
+    }
+
+    if (click.target.textContent === "Salvar") {
+      console.log("entrou salvar");
+      estiloPadrao(linhaElementos[0]);
+      salvarDescricao(linhaElementos[0]);
+
+      estiloPadrao(linhaElementos[1]);
+      salvarDestalhamento(linhaElementos[1]);
+
+      linhaElementos[2].textContent = "Editar";
+      linhaElementos[3].textContent = "Deletar";
+    }
   }
 
-  if (click.target.className === "btn apagar") {
-    infosBD = JSON.parse(localStorage.getItem("infosBD"));
-    infosBD.splice(linha - 1, 1);
-    localStorage.setItem("infosBD", JSON.stringify(infosBD));
+  if (click.target.textContent === "Descartar") {
+    estiloPadrao(linhaElementos[0]);
+    estiloPadrao(linhaElementos[1]);
     carregarHTMLTabela();
   }
+
+  if (click.target.textContent !== "Descartar") {
+    if (click.target.className === "btn apagar") {
+      adicionarHTMLConfirmacao();
+    }
+  }
+}
+
+function recuperarElementos() {
+  const btnSim = document.getElementById("btnSimConfirmacao");
+  btnNao = document.getElementById("btnNaoConfirmacao");
+}
+
+function adicionarHTMLConfirmacao() {
+  const sectionPrincipal = document.getElementById("sectionPrincipal");
+
+  const HTMLConfirmacao = document.createElement("div");
+  HTMLConfirmacao.setAttribute("class", "confirmacao");
+  HTMLConfirmacao.innerHTML = ` 
+  
+  <div class="container-confirmacao">
+    <div class="container-texto-confirmacao">
+      <h1>TEM CERTEZA</h1>
+      <p>que deseja deletar?</p>
+    </div>
+    <button
+      id="btnSimConfirmacao"
+      class="botao botao-confirmacao green-bg"
+    >
+      SIM
+    </button>
+    <button id="btnNaoConfirmacao" class="botao botao-confirmacao red-bg">
+      NÃO
+    </button>
+  </div>
+
+  `;
+
+  sectionPrincipal.appendChild(HTMLConfirmacao);
+
+  function confirmacao() {
+    usuarioConfirmado = false;
+
+    const btnSim = document.getElementById("btnSimConfirmacao");
+    btnSim.addEventListener("click", confirmado);
+
+    btnNao = document.getElementById("btnNaoConfirmacao");
+    btnNao.addEventListener("click", negado);
+
+    function confirmado() {
+      console.log("confirmado");
+
+      sectionPrincipal.removeChild(HTMLConfirmacao);
+
+      infosBD = JSON.parse(localStorage.getItem("infosBD"));
+      infosBD.splice(linha - 1, 1);
+      localStorage.setItem("infosBD", JSON.stringify(infosBD));
+      carregarHTMLTabela();
+    }
+
+    function negado() {
+      console.log("negado");
+      sectionPrincipal.removeChild(HTMLConfirmacao);
+    }
+  }
+  confirmacao();
 }
