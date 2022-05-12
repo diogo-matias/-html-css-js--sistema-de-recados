@@ -1,7 +1,24 @@
-// PEGANDO INFORMAÇÕES NO LOCAL STORAGE
-let infosBD = JSON.parse(localStorage.getItem("infosBD"));
-if (infosBD === null) {
-  infosBD = [];
+// PEGANDO INFORMACOES USUARIO
+const usuario = JSON.parse(localStorage.getItem("ultimoLogin"));
+idUsuario = usuario.id;
+nomeUsuario = usuario.usuario;
+console.log(nomeUsuario);
+
+// PEGANDO INFORMAÇÕES DA TABELA NO LOCAL STORAGE
+
+function getLocalStorage() {
+  let infosBD = JSON.parse(localStorage.getItem(`infos${nomeUsuario}`));
+
+  if (infosBD === null) {
+    infosBD = [];
+  }
+
+  setLocalStorage(infosBD);
+  return infosBD;
+}
+
+function setLocalStorage(infosBD) {
+  localStorage.setItem(`infos${nomeUsuario}`, JSON.stringify(infosBD));
 }
 
 const tabela = document.getElementById("tabela");
@@ -12,21 +29,25 @@ const detalhamento = document.getElementById("addDetalhamento");
 
 btnSalvar.addEventListener("click", salvar);
 
+console.log(getLocalStorage());
+
 function salvar() {
+  infos = getLocalStorage();
   const informacoes = {
-    id: infosBD.length + 1,
+    id: infos.length + 1,
     descricao: descricao.value,
     detalhamento: detalhamento.value,
   };
-  infosBD.push(informacoes);
+  infos.push(informacoes);
 
-  localStorage.setItem("infosBD", JSON.stringify(infosBD));
+  setLocalStorage(infos);
 
   // ACIONANDO A LINHA NO HTML DA TABELA
   carregarHTMLTabela();
 }
 
 function carregarHTMLTabela() {
+  //  PRIMEIRA LINHA
   tabela.innerHTML = `  <tbody id="tbody">
   <tr class="primeira_linha_tabela" id="linha_1">
   <td style="width: 5vw">#</td>
@@ -36,8 +57,9 @@ function carregarHTMLTabela() {
   </tr>
   </tbody>`;
 
-  let infosBD = JSON.parse(localStorage.getItem("infosBD"));
-  infosBD.forEach((linha, index) => {
+  // LINHAS EDITADAS PELO USUARIO
+
+  getLocalStorage().forEach((linha, index) => {
     tabela.innerHTML += ` <tr class="linha">
     <td>${index + 1}</td>
     <td>
@@ -71,14 +93,14 @@ carregarHTMLTabela();
 
 let linha = 0;
 function salvarDescricao(elemento) {
-  infosBD = JSON.parse(localStorage.getItem("infosBD"));
+  infosBD = getLocalStorage();
   infosBD[linha - 1].descricao = `${elemento.value}`;
-  localStorage.setItem("infosBD", JSON.stringify(infosBD));
+  setLocalStorage(infosBD);
 }
 function salvarDestalhamento(elemento) {
-  infosBD = JSON.parse(localStorage.getItem("infosBD"));
+  infosBD = getLocalStorage();
   infosBD[linha - 1].detalhamento = `${elemento.value}`;
-  localStorage.setItem("infosBD", JSON.stringify(infosBD));
+  setLocalStorage(infosBD);
 }
 
 function estiloPadrao(elemento) {
@@ -108,6 +130,7 @@ function apagarOuEditar(click) {
       return;
     }
 
+    console.log;
     if (click.target.textContent === "Salvar") {
       estiloPadrao(linhaElementos[0]);
       salvarDescricao(linhaElementos[0]);
@@ -179,9 +202,9 @@ function adicionarHTMLConfirmacao() {
 
       sectionPrincipal.removeChild(HTMLConfirmacao);
 
-      infosBD = JSON.parse(localStorage.getItem("infosBD"));
+      infosBD = getLocalStorage();
       infosBD.splice(linha - 1, 1);
-      localStorage.setItem("infosBD", JSON.stringify(infosBD));
+      setLocalStorage(infosBD);
       carregarHTMLTabela();
     }
 

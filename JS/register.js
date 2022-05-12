@@ -9,6 +9,7 @@ formRegister.addEventListener("submit", registrar);
 let usuariosBD = JSON.parse(localStorage.getItem("usuarios"));
 if (usuariosBD === null) {
   usuariosBD = [];
+  localStorage.setItem("usuarios", JSON.stringify(usuariosBD));
 }
 
 function registrar(event) {
@@ -41,6 +42,7 @@ function registrar(event) {
   }
 
   usuarioCadastrado = {
+    id: idUsuario(),
     usuario: campoUsuario,
     senha: campoSenha,
   };
@@ -50,4 +52,17 @@ function registrar(event) {
   localStorage.setItem("usuarios", JSON.stringify(usuariosBD));
   alert("Usuario cadastrado com sucesso!");
   location.href = "./index.html";
+}
+
+function idUsuario() {
+  usuariosBD = JSON.parse(localStorage.getItem("usuarios"));
+  max = usuariosBD[0]?.id ?? 0;
+
+  usuariosBD.forEach((usuario) => {
+    if (usuario.id ?? 0 > max) {
+      max = usuario.id;
+    }
+  });
+
+  return max + 1;
 }

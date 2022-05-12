@@ -12,9 +12,11 @@ function logar(event) {
   campoUsuario = FormLogin.usuario.value;
   campoSenha = FormLogin.senha.value;
 
-  const UsuarioEncontrado = usuariosCadastrados.some((usuario) => {
+  const UsuarioEncontrado = usuariosCadastrados.find((usuario) => {
     return usuario.usuario === campoUsuario && usuario.senha === campoSenha;
   });
+  console.log(UsuarioEncontrado?.id ?? -1);
+  id = UsuarioEncontrado?.id ?? -1;
 
   if (UsuarioEncontrado) {
     location.href = "./home.html";
@@ -23,13 +25,14 @@ function logar(event) {
     return;
   }
 
-  setarUltimoLogin();
+  setarUltimoLogin(id);
 }
 
-function setarUltimoLogin() {
+function setarUltimoLogin(id) {
   localStorage.setItem(
     "ultimoLogin",
     JSON.stringify({
+      id: id,
       usuario: campoUsuario,
       senha: campoSenha,
     })
