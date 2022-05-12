@@ -1,4 +1,6 @@
 FOCO NOS DETALHES:
- - logo na abinha (tipo do youtube)
+ [ ] logo na abinha (tipo do youtube)
  [x] Arrumar uma solucao para nao escrever toda hora os HTML's das linha
- [ ] Solucao para primeira vez que a página carrega e não tem como editar os valores
+ [x] Solucao para primeira vez que a página carrega e não tem como editar os valores
+ [x] Informacoes únicas para cada usuario
+ [ ] Estilizar a página home
