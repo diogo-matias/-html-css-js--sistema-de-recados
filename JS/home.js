@@ -23,15 +23,16 @@ function setLocalStorage(infosBD) {
 
 const tabela = document.getElementById("tabela");
 
-const btnSalvar = document.getElementById("btnSalvar");
 const descricao = document.getElementById("addDescricao");
 const detalhamento = document.getElementById("addDetalhamento");
 
-btnSalvar.addEventListener("click", salvar);
+const formInformacoes = document.querySelector("form");
+formInformacoes.addEventListener("submit", salvar);
 
 console.log(getLocalStorage());
 
-function salvar() {
+function salvar(event) {
+  event.preventDefault();
   infos = getLocalStorage();
   const informacoes = {
     id: infos.length + 1,
@@ -42,6 +43,8 @@ function salvar() {
 
   setLocalStorage(infos);
 
+  descricao.value = "";
+  detalhamento.value = "";
   // ACIONANDO A LINHA NO HTML DA TABELA
   carregarHTMLTabela();
 }
