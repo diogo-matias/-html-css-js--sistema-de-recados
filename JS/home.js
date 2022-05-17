@@ -1,5 +1,10 @@
 // PEGANDO INFORMACOES USUARIO
 const usuario = JSON.parse(localStorage.getItem("ultimoLogin"));
+if (usuario === null) {
+  alert("Nenhum ususario encontrado");
+  location.href = "./index.html";
+}
+
 idUsuario = usuario.id;
 nomeUsuario = usuario.usuario;
 console.log(nomeUsuario);
@@ -35,7 +40,7 @@ function salvar(event) {
   event.preventDefault();
   infos = getLocalStorage();
   const informacoes = {
-    id: infos.length + 1,
+    id: definirID(),
     descricao: descricao.value,
     detalhamento: detalhamento.value,
   };
@@ -66,13 +71,13 @@ function carregarHTMLTabela() {
     tabela.innerHTML += ` <tr class="linha">
     <td>${index + 1}</td>
     <td>
-    <input type="text" name ="${index + 1}" class="input" value= "${
+    <input type="text" name ="${linha.id}" class="input" value= "${
       linha.descricao
     }" disabled />
     </td>
     <td>
     <input
-    name ="${index + 1}"
+    name ="${linha.id}"
     type="text"
     class="input"
     value="${linha.detalhamento}"
@@ -81,9 +86,9 @@ function carregarHTMLTabela() {
     </td>
     <td style="width: 15vw">
     <button class="btn editar" name="${
-      index + 1
+      linha.id
     }">Editar</button> <button class="btn apagar" name="${
-      index + 1
+      linha.id
     }">Deletar</button>
     </td>
     </tr>`;
@@ -94,15 +99,14 @@ function carregarHTMLTabela() {
 }
 carregarHTMLTabela();
 
-let linha = 0;
-function salvarDescricao(elemento) {
+function salvarDescricao(elemento, indexElement) {
   infosBD = getLocalStorage();
-  infosBD[linha - 1].descricao = `${elemento.value}`;
+  infosBD[indexElement].descricao = `${elemento.value}`;
   setLocalStorage(infosBD);
 }
-function salvarDestalhamento(elemento) {
+function salvarDestalhamento(elemento, indexElement) {
   infosBD = getLocalStorage();
-  infosBD[linha - 1].detalhamento = `${elemento.value}`;
+  infosBD[indexElement].detalhamento = `${elemento.value}`;
   setLocalStorage(infosBD);
 }
 
@@ -116,10 +120,18 @@ function estiloInputHabilitado(elemento) {
   elemento.setAttribute("class", "input input_habilitado ");
 }
 
+let idElemento = 0;
 let contadorCliques = 0;
 function apagarOuEditar(click) {
   const linhaElementos = document.getElementsByName(click.target.name);
-  linha = click.target.name;
+  idElemento = click.target.name;
+  console.log(idElemento);
+
+  const infosBD = getLocalStorage();
+
+  const indexElement = infosBD.findIndex(
+    (elemento) => elemento.id == idElemento
+  );
 
   if (click.target.className === "btn editar") {
     contadorCliques++;
@@ -133,13 +145,12 @@ function apagarOuEditar(click) {
       return;
     }
 
-    console.log;
     if (click.target.textContent === "Salvar") {
       estiloPadrao(linhaElementos[0]);
-      salvarDescricao(linhaElementos[0]);
+      salvarDescricao(linhaElementos[0], indexElement);
 
       estiloPadrao(linhaElementos[1]);
-      salvarDestalhamento(linhaElementos[1]);
+      salvarDestalhamento(linhaElementos[1], indexElement);
 
       linhaElementos[2].textContent = "Editar";
       linhaElementos[3].textContent = "Deletar";
@@ -158,11 +169,6 @@ function apagarOuEditar(click) {
     }
   }
 }
-
-// function recuperarElementos() {
-//   const btnSim = document.getElementById("btnSimConfirmacao");
-//   btnNao = document.getElementById("btnNaoConfirmacao");
-// }
 
 function adicionarHTMLConfirmacao() {
   const sectionPrincipal = document.getElementById("sectionPrincipal");
@@ -204,8 +210,16 @@ function adicionarHTMLConfirmacao() {
 
       sectionPrincipal.removeChild(HTMLConfirmacao);
 
+      // REMOVE O ELEMENTO SELECIONADO
       infosBD = getLocalStorage();
-      infosBD.splice(linha - 1, 1);
+      console.log(idElemento);
+      console.log(infosBD);
+
+      const indexElement = infosBD.findIndex(
+        (elemento) => elemento.id == idElemento
+      );
+
+      infosBD.splice(indexElement, 1);
       setLocalStorage(infosBD);
       carregarHTMLTabela();
     }
@@ -216,4 +230,16 @@ function adicionarHTMLConfirmacao() {
     }
   }
   confirmacao();
+}
+
+function definirID() {
+  const infosBD = getLocalStorage();
+
+  let max = 0;
+  infosBD.forEach((info) => {
+    if (info.id > max) {
+      max = info.id;
+    }
+  });
+  return max + 1;
 }

@@ -206,34 +206,72 @@ a {
   background-image: url(../images/fundo-registro.png);
 }
 
-/* pagina principal (home) */
+/* PÁGINA PRINCIPAL (HOME) */
 
 .body_home {
-  background-color: #e7e7e7;
+  background-color: #1d1d1d;
+  color: rgb(223, 223, 223);
+}
+
+.teste {
+  position: absolute;
+  z-index: -1;
+  margin-top: -50px;
+
+  height: 300px;
+  width: 100%;
+  background-color: #1dff92;
+
+  background: url("../images/paisagem.png");
+  background-position: 0 -100px;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .home_section_principal {
   margin: 50px auto;
   display: flex;
   flex-direction: column;
-  background-color: rgb(29, 173, 255, 0.5);
+  /* background-color: rgb(243, 243, 243); */
   width: 80vw;
   align-items: center;
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 .titulo_meus_recados {
   color: white;
+  align-self: flex-start;
+  margin-left: 70px;
+  font-size: 40px;
+  margin-top: 50px;
+  margin-bottom: -70px;
 }
 
 .adicionar_info {
-  height: 35px;
+  /* position: fixed; */
+  justify-content: space-around;
+
+  height: 80px;
   width: 70vw;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+
+  margin-top: 70px;
+  margin-bottom: 60px;
+  background-color: rgb(36, 36, 36, 0.8);
+  border-radius: 10px;
 }
 
+.adicionar_info input {
+  height: 35px;
+  padding: 0 20px;
+}
+
+.input_info {
+  width: 350px;
+  border-radius: 5px;
+  border: none;
+}
 table {
   /* background-color: rgb(26, 26, 26); */
   border-radius: 10px;
@@ -290,7 +328,7 @@ tr {
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute;
+  position: fixed;
   z-index: 1;
   margin-top: -50px;
 
@@ -336,13 +374,4 @@ tr {
 
 .green-bg {
   background-color: rgb(39, 177, 103);
-}
-
-.teste123 {
-  margin: 0;
-  position: absolute;
-  z-index: 1;
-  background-color: rgb(29, 173, 255, 0.5);
-  height: 20vh;
-  width: 20vw;
 }
