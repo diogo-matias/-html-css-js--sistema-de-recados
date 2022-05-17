@@ -186,7 +186,6 @@ function adicionarHTMLConfirmacao() {
       NÃO
     </button>
   </div>
-
   `;
 
   sectionPrincipal.appendChild(HTMLConfirmacao);
