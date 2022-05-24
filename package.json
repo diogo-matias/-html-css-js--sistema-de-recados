@@ -1,0 +1,22 @@
+{
+  "name": "sistema-recados",
+  "version": "1.0.0",
+  "description": "<img src=\"./images/preview_1.png\">\r <img src=\"./images/preview_2.png\">",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diogo-matias/-html-css-js--sistema-de-recados.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/diogo-matias/-html-css-js--sistema-de-recados/issues"
+  },
+  "homepage": "https://github.com/diogo-matias/-html-css-js--sistema-de-recados#readme",
+  "devDependencies": {
+    "typescript": "^4.6.4"
+  }
+}

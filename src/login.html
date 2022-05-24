@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <title>SR Login</title>
+  </head>
+  <body>
+    <section class="section-principal">
+      <div class="campo-login">
+        <div class="titulo">
+          <p>Entrar no</p>
+          <h1>Sistema de recados</h1>
+        </div>
+        <div>
+          <form id="form-login">
+            <div class="form">
+              <input
+                required
+                name="usuario"
+                class="usuario-senha"
+                type="text"
+                id="usuario"
+                class="usuario"
+                placeholder="Usuário"
+              />
+
+              <input
+                required
+                name="senha"
+                class="usuario-senha"
+                type="password"
+                id="senha"
+                class="senha"
+                placeholder="Digite a senha"
+              />
+              <img id="olho-senha" src="./images/olho.png" alt="" />
+            </div>
+
+            <input
+              class="botao"
+              type="submit"
+              name="entrar"
+              id="entrar"
+              value="Entrar"
+            />
+          </form>
+          <div class="quadradinho">
+            <input
+              class="checkbox"
+              type="checkbox"
+              name="quadradim"
+              id="quadradim"
+            />
+            <label for="quadradim"> Manter conectado</label>
+          </div>
+          <section class="ou">
+            <div class="risco1"></div>
+            <span>OU</span>
+            <div class="risco2"></div>
+          </section>
+
+          <button id="btnCriarConta" class="botao">Criar nova conta</button>
+        </div>
+      </div>
+    </section>
+
+    <script src="./JS/login.js"></script>
+  </body>
+</html>
