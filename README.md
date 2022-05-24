@@ -1,4 +1,5 @@
-# Sistema de Recados HTML + CSS + JavaScript
+# Sistema de Recados 
+# HTML + CSS + JavaScript + TypeScript
 
 
 <img src="./images/preview_1.png">
