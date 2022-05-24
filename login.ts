@@ -50,7 +50,7 @@ function manterLogado() {
     localStorage.setItem("manterLogado", "false");
   }
 
-  const keepLoggedIn = JSON.parse(localStorage.getItem("manterLogado") || "");
+  // const keepLoggedIn = JSON.parse(localStorage.getItem("manterLogado") || "");
 }
 
 const body = document.querySelector("body") as HTMLElement;
@@ -69,6 +69,10 @@ function pageReload() {
 
 function preencherCampos() {
   const UltimoLogin = JSON.parse(localStorage.getItem("ultimoLogin") || "[]");
+
+  if (UltimoLogin.usuario === undefined) {
+    return;
+  }
 
   FormLogin.usuario.value = UltimoLogin.usuario;
   FormLogin.senha.value = UltimoLogin.senha;
