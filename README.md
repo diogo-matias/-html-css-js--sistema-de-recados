@@ -4,7 +4,7 @@
 
 <span>✅ User registration</span> </br>
 <span>✅ User login</span>  </br>
-<span>✅ Unique scraps for each user</span> 
+<span>✅ Unique scraps for each user</span>  </br>
 <span>✅ Local Storage </span>  </br>
 
 <img src="./src/images/preview-login.png">
