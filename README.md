@@ -11,7 +11,9 @@
 <h3>technical requirement</h3>
 <span>✅ DOM Manipulation </span>  </br>
 <span>✅ Local Storage</span>  </br>
+<span>✅ Only CSS </span>  </br>
 <span>✅ NPM and Node</span>  </br>
+
 
 <h1>Preview</h1>
 <h2>Login Page</h2>
