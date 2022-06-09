@@ -5,7 +5,7 @@
 <span>✅ User registration</span> </br>
 <span>✅ User login</span>  </br>
 <span>✅ Unique scraps for each user</span>  </br>
-<span>✅ Local Storage </span>  </br>
+<span>✅ Save changes when close browser </span>  </br>
 
 <h2>Login Page</h2>
 <img src="./src/images/preview-login.png">
