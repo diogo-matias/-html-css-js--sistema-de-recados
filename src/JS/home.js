@@ -1,13 +1,17 @@
 "use strict";
-// PEGANDO INFORMACOES USUARIO
 const usuario = JSON.parse(localStorage.getItem("ultimoLogin") || "[]");
-if (usuario === "[]") {
+const idUsuario = usuario.id;
+const nomeUsuario = usuario.usuario;
+const tabela = document.getElementById("tabela");
+const descricao = document.getElementById("addDescricao");
+const detalhamento = document.getElementById("addDetalhamento");
+const formInformacoes = document.querySelector("form");
+const sectionPrincipal = document.getElementById("sectionPrincipal");
+let idElemento = 0;
+if (usuario.length === 0) {
     alert("Nenhum ususario encontrado");
     location.href = "./login.html";
 }
-const idUsuario = usuario.id;
-const nomeUsuario = usuario.usuario;
-console.log(nomeUsuario);
 // PEGANDO INFORMAÇÕES DA TABELA NO LOCAL STORAGE
 function getLocalStorage() {
     let infosBD = JSON.parse(localStorage.getItem(`infos${nomeUsuario}`) || "[]");
@@ -16,14 +20,9 @@ function getLocalStorage() {
 function setLocalStorage(infosBD) {
     localStorage.setItem(`infos${nomeUsuario}`, JSON.stringify(infosBD));
 }
-const tabela = document.getElementById("tabela");
-const descricao = document.getElementById("addDescricao");
-const detalhamento = (document.getElementById("addDetalhamento"));
-const formInformacoes = document.querySelector("form");
-formInformacoes.addEventListener("submit", salvar);
 function salvar(event) {
     event.preventDefault();
-    if (descricao.value === "" && detalhamento.value === "") {
+    if (!descricao.value && !detalhamento.value) {
         alert("Preencha pelo menos um campo");
         return;
     }
@@ -52,60 +51,43 @@ function carregarHTMLTabela() {
   </tbody>`;
     // LINHAS EDITADAS PELO USUARIO
     getLocalStorage().forEach((linha, index) => {
-        tabela.innerHTML += `<tr class="linha">
-  
+        tabela.innerHTML += `
+    <tr class="linha">
           <td>${index + 1}</td>
           <td>
-          <input type="text" name ="${linha.id}" class="input" value= "${linha.descricao}" disabled />
+              <input
+              type="text"
+              name ="${linha.id}" 
+              class="input" 
+              value= "${linha.descricao}"
+              disabled/>
           </td>
           <td>
-          <input
-          name ="${linha.id}"
-          type="text"
-          class="input"
-          value="${linha.detalhamento}"
-          disabled
+            <input
+            name ="${linha.id}"
+            type="text"
+            class="input"
+            value="${linha.detalhamento}"
+            disabled
           />
           </td>
           <td style="width: 15vw">
-          <button class="btn editar" name="${linha.id}">Editar</button> <button   class="btn apagar" name="${linha.id}">Deletar</button>
+                <button class="btn editar" name="${linha.id}">Editar</button>
+                <button class="btn apagar" name="${linha.id}">Deletar</button>
           </td>
-          </tr>
+     </tr>
      
-        `;
+    `;
     });
     const linhas = document.querySelectorAll(".linha");
     linhas.forEach((linha) => linha.addEventListener("click", apagarOuEditar));
 }
-carregarHTMLTabela();
-function salvarDescricao(elemento, indexElement) {
-    const infosBD = getLocalStorage();
-    infosBD[indexElement].descricao = `${elemento.value}`;
-    setLocalStorage(infosBD);
-}
-function salvarDestalhamento(elemento, indexElement) {
-    const infosBD = getLocalStorage();
-    infosBD[indexElement].detalhamento = `${elemento.value}`;
-    setLocalStorage(infosBD);
-}
-function estiloPadrao(elemento) {
-    elemento.setAttribute("disabled", "true");
-    elemento.setAttribute("class", "input");
-}
-function estiloInputHabilitado(elemento) {
-    elemento.removeAttribute("disabled");
-    elemento.setAttribute("class", "input input_habilitado ");
-}
-let idElemento = 0;
-let contadorCliques = 0;
 function apagarOuEditar(click) {
     const linhaElementos = document.getElementsByName(click.target.name);
     idElemento = click.target.name;
-    console.log(idElemento);
     const infosBD = getLocalStorage();
     const indexElement = infosBD.findIndex((elemento) => elemento.id == idElemento);
     if (click.target.className === "btn editar") {
-        contadorCliques++;
         if (click.target.textContent === "Editar") {
             estiloInputHabilitado(linhaElementos[0]);
             estiloInputHabilitado(linhaElementos[1]);
@@ -133,10 +115,29 @@ function apagarOuEditar(click) {
         }
     }
 }
+function salvarDescricao(elemento, indexElement) {
+    const infosBD = getLocalStorage();
+    infosBD[indexElement].descricao = `${elemento.value}`;
+    setLocalStorage(infosBD);
+}
+function salvarDestalhamento(elemento, indexElement) {
+    const infosBD = getLocalStorage();
+    infosBD[indexElement].detalhamento = `${elemento.value}`;
+    setLocalStorage(infosBD);
+}
+function estiloPadrao(elemento) {
+    elemento.setAttribute("disabled", "true");
+    elemento.setAttribute("class", "input");
+}
+function estiloInputHabilitado(elemento) {
+    elemento.removeAttribute("disabled");
+    elemento.setAttribute("class", "input input_habilitado ");
+}
+descricao;
 function adicionarHTMLConfirmacao() {
-    const sectionPrincipal = document.getElementById("sectionPrincipal");
     const HTMLConfirmacao = document.createElement("div");
     HTMLConfirmacao.setAttribute("class", "confirmacao");
+    HTMLConfirmacao.setAttribute("id", "confirmacao-modal");
     HTMLConfirmacao.innerHTML = ` 
   
   <div class="container-confirmacao">
@@ -144,42 +145,27 @@ function adicionarHTMLConfirmacao() {
       <h1>TEM CERTEZA</h1>
       <p>que deseja deletar?</p>
     </div>
-    <button
-      id="btnSimConfirmacao"
-      class="botao botao-confirmacao green-bg"
-    >
-      SIM
-    </button>
-    <button id="btnNaoConfirmacao" class="botao botao-confirmacao red-bg">
-      NÃO
-    </button>
+    <button id="btnSimConfirmacao" class="botao botao-confirmacao green-bg"> SIM </button>
+    <button id="btnNaoConfirmacao" class="botao botao-confirmacao red-bg"> NÃO </button>
   </div>
   `;
     sectionPrincipal.appendChild(HTMLConfirmacao);
-    function confirmacao() {
-        const usuarioConfirmado = false;
-        const btnSim = document.getElementById("btnSimConfirmacao");
-        btnSim.addEventListener("click", confirmado);
-        const btnNao = document.getElementById("btnNaoConfirmacao");
-        btnNao.addEventListener("click", negado);
-        function confirmado() {
-            console.log("confirmado");
-            sectionPrincipal.removeChild(HTMLConfirmacao);
-            // REMOVE O ELEMENTO SELECIONADO
-            const infosBD = getLocalStorage();
-            console.log(idElemento);
-            console.log(infosBD);
-            const indexElement = infosBD.findIndex((elemento) => elemento.id == idElemento);
-            infosBD.splice(indexElement, 1);
-            setLocalStorage(infosBD);
-            carregarHTMLTabela();
-        }
-        function negado() {
-            console.log("negado");
-            sectionPrincipal.removeChild(HTMLConfirmacao);
-        }
-    }
     confirmacao();
+}
+function confirmacao() {
+    const btnSim = document.getElementById("btnSimConfirmacao");
+    btnSim.addEventListener("click", () => {
+        sectionPrincipal.removeChild(HTMLConfirmacao);
+        // REMOVE O ELEMENTO SELECIONADO
+        const infosBD = getLocalStorage();
+        const indexElement = infosBD.findIndex((elemento) => elemento.id == idElemento);
+        infosBD.splice(indexElement, 1);
+        setLocalStorage(infosBD);
+        carregarHTMLTabela();
+    });
+    const btnNao = document.getElementById("btnNaoConfirmacao");
+    btnNao.addEventListener("click", () => sectionPrincipal.removeChild(HTMLConfirmacao));
+    const HTMLConfirmacao = document.getElementById("confirmacao-modal");
 }
 function definirID() {
     const infosBD = getLocalStorage();
@@ -191,3 +177,5 @@ function definirID() {
     });
     return max + 1;
 }
+carregarHTMLTabela();
+formInformacoes.addEventListener("submit", salvar);

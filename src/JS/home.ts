@@ -1,13 +1,23 @@
-// PEGANDO INFORMACOES USUARIO
 const usuario = JSON.parse(localStorage.getItem("ultimoLogin") || "[]");
-if (usuario === "[]") {
+const idUsuario = usuario.id;
+const nomeUsuario = usuario.usuario;
+
+const tabela = document.getElementById("tabela") as HTMLElement;
+const descricao = document.getElementById("addDescricao") as HTMLInputElement;
+const detalhamento = document.getElementById(
+  "addDetalhamento"
+) as HTMLInputElement;
+const formInformacoes = document.querySelector("form") as HTMLFormElement;
+const sectionPrincipal = document.getElementById(
+  "sectionPrincipal"
+) as HTMLElement;
+
+let idElemento = 0;
+
+if (usuario.length === 0) {
   alert("Nenhum ususario encontrado");
   location.href = "./login.html";
 }
-
-const idUsuario = usuario.id;
-const nomeUsuario = usuario.usuario;
-console.log(nomeUsuario);
 
 // PEGANDO INFORMAÇÕES DA TABELA NO LOCAL STORAGE
 
@@ -21,19 +31,9 @@ function setLocalStorage(infosBD: Array<any>) {
   localStorage.setItem(`infos${nomeUsuario}`, JSON.stringify(infosBD));
 }
 
-const tabela = document.getElementById("tabela") as HTMLElement;
-
-const descricao = document.getElementById("addDescricao") as HTMLInputElement;
-const detalhamento = <HTMLInputElement>(
-  document.getElementById("addDetalhamento")
-);
-
-const formInformacoes = document.querySelector("form") as HTMLFormElement;
-formInformacoes.addEventListener("submit", salvar);
-
 function salvar(event: any) {
   event.preventDefault();
-  if (descricao.value === "" && detalhamento.value === "") {
+  if (!descricao.value && !detalhamento.value) {
     alert("Preencha pelo menos um campo");
     return;
   }
@@ -68,67 +68,42 @@ function carregarHTMLTabela() {
   // LINHAS EDITADAS PELO USUARIO
 
   getLocalStorage().forEach((linha: any, index: number) => {
-    tabela.innerHTML += `<tr class="linha">
-  
+    tabela.innerHTML += `
+    <tr class="linha">
           <td>${index + 1}</td>
           <td>
-          <input type="text" name ="${linha.id}" class="input" value= "${
-      linha.descricao
-    }" disabled />
+              <input
+              type="text"
+              name ="${linha.id}" 
+              class="input" 
+              value= "${linha.descricao}"
+              disabled/>
           </td>
           <td>
-          <input
-          name ="${linha.id}"
-          type="text"
-          class="input"
-          value="${linha.detalhamento}"
-          disabled
+            <input
+            name ="${linha.id}"
+            type="text"
+            class="input"
+            value="${linha.detalhamento}"
+            disabled
           />
           </td>
           <td style="width: 15vw">
-          <button class="btn editar" name="${
-            linha.id
-          }">Editar</button> <button   class="btn apagar" name="${
-      linha.id
-    }">Deletar</button>
+                <button class="btn editar" name="${linha.id}">Editar</button>
+                <button class="btn apagar" name="${linha.id}">Deletar</button>
           </td>
-          </tr>
+     </tr>
      
-        `;
+    `;
   });
 
   const linhas = document.querySelectorAll(".linha");
   linhas.forEach((linha) => linha.addEventListener("click", apagarOuEditar));
 }
-carregarHTMLTabela();
 
-function salvarDescricao(elemento: any, indexElement: number) {
-  const infosBD = getLocalStorage();
-  infosBD[indexElement].descricao = `${elemento.value}`;
-  setLocalStorage(infosBD);
-}
-function salvarDestalhamento(elemento: any, indexElement: number) {
-  const infosBD = getLocalStorage();
-  infosBD[indexElement].detalhamento = `${elemento.value}`;
-  setLocalStorage(infosBD);
-}
-
-function estiloPadrao(elemento: any) {
-  elemento.setAttribute("disabled", "true");
-  elemento.setAttribute("class", "input");
-}
-
-function estiloInputHabilitado(elemento: any) {
-  elemento.removeAttribute("disabled");
-  elemento.setAttribute("class", "input input_habilitado ");
-}
-
-let idElemento = 0;
-let contadorCliques = 0;
 function apagarOuEditar(click: any) {
   const linhaElementos = document.getElementsByName(click.target.name);
   idElemento = click.target.name;
-  console.log(idElemento);
 
   const infosBD = getLocalStorage();
 
@@ -137,8 +112,6 @@ function apagarOuEditar(click: any) {
   );
 
   if (click.target.className === "btn editar") {
-    contadorCliques++;
-
     if (click.target.textContent === "Editar") {
       estiloInputHabilitado(linhaElementos[0]);
       estiloInputHabilitado(linhaElementos[1]);
@@ -173,13 +146,32 @@ function apagarOuEditar(click: any) {
   }
 }
 
-function adicionarHTMLConfirmacao() {
-  const sectionPrincipal = document.getElementById(
-    "sectionPrincipal"
-  ) as HTMLElement;
+function salvarDescricao(elemento: any, indexElement: number) {
+  const infosBD = getLocalStorage();
+  infosBD[indexElement].descricao = `${elemento.value}`;
+  setLocalStorage(infosBD);
+}
+function salvarDestalhamento(elemento: any, indexElement: number) {
+  const infosBD = getLocalStorage();
+  infosBD[indexElement].detalhamento = `${elemento.value}`;
+  setLocalStorage(infosBD);
+}
 
+function estiloPadrao(elemento: any) {
+  elemento.setAttribute("disabled", "true");
+  elemento.setAttribute("class", "input");
+}
+
+function estiloInputHabilitado(elemento: any) {
+  elemento.removeAttribute("disabled");
+  elemento.setAttribute("class", "input input_habilitado ");
+}
+descricao;
+
+function adicionarHTMLConfirmacao() {
   const HTMLConfirmacao = document.createElement("div");
   HTMLConfirmacao.setAttribute("class", "confirmacao");
+  HTMLConfirmacao.setAttribute("id", "confirmacao-modal");
   HTMLConfirmacao.innerHTML = ` 
   
   <div class="container-confirmacao">
@@ -187,54 +179,40 @@ function adicionarHTMLConfirmacao() {
       <h1>TEM CERTEZA</h1>
       <p>que deseja deletar?</p>
     </div>
-    <button
-      id="btnSimConfirmacao"
-      class="botao botao-confirmacao green-bg"
-    >
-      SIM
-    </button>
-    <button id="btnNaoConfirmacao" class="botao botao-confirmacao red-bg">
-      NÃO
-    </button>
+    <button id="btnSimConfirmacao" class="botao botao-confirmacao green-bg"> SIM </button>
+    <button id="btnNaoConfirmacao" class="botao botao-confirmacao red-bg"> NÃO </button>
   </div>
   `;
 
   sectionPrincipal.appendChild(HTMLConfirmacao);
-
-  function confirmacao() {
-    const usuarioConfirmado = false;
-
-    const btnSim = document.getElementById("btnSimConfirmacao") as HTMLElement;
-    btnSim.addEventListener("click", confirmado);
-
-    const btnNao = document.getElementById("btnNaoConfirmacao") as HTMLElement;
-    btnNao.addEventListener("click", negado);
-
-    function confirmado() {
-      console.log("confirmado");
-
-      sectionPrincipal.removeChild(HTMLConfirmacao);
-
-      // REMOVE O ELEMENTO SELECIONADO
-      const infosBD = getLocalStorage();
-      console.log(idElemento);
-      console.log(infosBD);
-
-      const indexElement = infosBD.findIndex(
-        (elemento: any) => elemento.id == idElemento
-      );
-
-      infosBD.splice(indexElement, 1);
-      setLocalStorage(infosBD);
-      carregarHTMLTabela();
-    }
-
-    function negado() {
-      console.log("negado");
-      sectionPrincipal.removeChild(HTMLConfirmacao);
-    }
-  }
   confirmacao();
+}
+
+function confirmacao() {
+  const btnSim = document.getElementById("btnSimConfirmacao") as HTMLElement;
+  btnSim.addEventListener("click", () => {
+    sectionPrincipal.removeChild(HTMLConfirmacao);
+
+    // REMOVE O ELEMENTO SELECIONADO
+    const infosBD = getLocalStorage();
+
+    const indexElement = infosBD.findIndex(
+      (elemento: any) => elemento.id == idElemento
+    );
+
+    infosBD.splice(indexElement, 1);
+    setLocalStorage(infosBD);
+    carregarHTMLTabela();
+  });
+
+  const btnNao = document.getElementById("btnNaoConfirmacao") as HTMLElement;
+  btnNao.addEventListener("click", () =>
+    sectionPrincipal.removeChild(HTMLConfirmacao)
+  );
+
+  const HTMLConfirmacao = document.getElementById(
+    "confirmacao-modal"
+  ) as HTMLElement;
 }
 
 function definirID() {
@@ -248,3 +226,6 @@ function definirID() {
   });
   return max + 1;
 }
+
+carregarHTMLTabela();
+formInformacoes.addEventListener("submit", salvar);

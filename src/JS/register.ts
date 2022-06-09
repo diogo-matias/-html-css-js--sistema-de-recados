@@ -4,9 +4,6 @@ const formRegister = document.getElementById(
 formRegister.addEventListener("submit", registrar);
 
 let usuariosBD = JSON.parse(localStorage.getItem("usuarios") || "[]");
-if (usuariosBD === "[]") {
-  //   localStorage.setItem("usuarios", JSON.stringify(usuariosBD));
-}
 
 function registrar(event: any) {
   event.preventDefault();
@@ -23,17 +20,9 @@ function registrar(event: any) {
   const usuarioJaCadastrado = usuariosBD.some((usuarios: any) => {
     return usuarios.usuario === campoUsuario;
   });
-  const senhaJaCadastrada = usuariosBD.some((usuarios: any) => {
-    return usuarios.senha === campoSenha;
-  });
 
   if (usuarioJaCadastrado) {
     alert("Usuario já cadastrado");
-    return;
-  }
-
-  if (senhaJaCadastrada) {
-    alert("Senha já cadastrada");
     return;
   }
 

@@ -1,6 +1,7 @@
-# Sistema de Recados 
+# Sistema de Recados
+
 # HTML + CSS + JavaScript + TypeScript
 
-
-<img src="./images/preview_1.png">
-<img src="./images/preview_2.png">
+<img src="./images/preview-home.png">
+<img src="./images/preview-login.png">
+<img src="./images/preview-register.png">
