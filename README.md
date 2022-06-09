@@ -2,10 +2,10 @@
 
 <h2>HTML + CSS + JavaScript + TypeScript</h2>
 
-✅ User registration
-✅ User login
-✅ Unique scraps for each user
-✅ Local Storage 
+<span>✅ User registration</span> 
+<span>✅ User login</span> 
+<span>✅ Unique scraps for each user</span> 
+<span>✅ Local Storage </span> 
 
 <img src="./src/images/preview-login.png">
 <img src="./src/images/preview-register.png">
