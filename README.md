@@ -13,7 +13,6 @@
 <span>✅ Responsive Web design </span>  </br>
 <span>✅ DOM Manipulation </span>  </br>
 <span>✅ Local Storage</span>  </br>
-<span>✅ Only CSS </span>  </br>
 <span>✅ NPM and Node</span>  </br>
 
 
