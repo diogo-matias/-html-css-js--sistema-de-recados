@@ -9,6 +9,8 @@
 <span>✅ saves scraps when the browser is closed </span>  </br>
 
 <h3>technical requirement</h3>
+<span>✅ Boostrap </span>  </br>
+<span>✅ Responsive Web design </span>  </br>
 <span>✅ DOM Manipulation </span>  </br>
 <span>✅ Local Storage</span>  </br>
 <span>✅ Only CSS </span>  </br>
