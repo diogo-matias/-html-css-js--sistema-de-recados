@@ -12,16 +12,41 @@ function logar(event) {
     const usuarioEncontrado = usuariosCadastrados.find((usuario) => {
         return usuario.usuario === campoUsuario && usuario.senha === campoSenha;
     });
-    if (usuariosCadastrados === []) {
-        alert("Não existe nenhum usuário cadastrado");
-        location.href = "./nova-conta.html";
-    }
     if (!usuarioEncontrado) {
-        alert("usuario não encontrado");
+        showAlert("Usuário ou senha inválidos", "danger", 1500);
         return;
     }
     location.href = "./home.html";
     localStorage.setItem("ultimoLogin", JSON.stringify(usuarioEncontrado));
+}
+function showAlert(message, color, timeOut) {
+    if (!message) {
+        return;
+    }
+    const alertBox = document.getElementById("alert-box");
+    const containerAlert = document.getElementById("alert-container");
+    const alertTextContent = document.getElementById("alert-text-content");
+    const btnClose = document.getElementById("btn-close");
+    alertBox === null || alertBox === void 0 ? void 0 : alertBox.classList.remove("d-none");
+    alertTextContent.textContent = message;
+    btnClose === null || btnClose === void 0 ? void 0 : btnClose.addEventListener("click", () => {
+        alertBox === null || alertBox === void 0 ? void 0 : alertBox.classList.add("d-none");
+        containerAlert === null || containerAlert === void 0 ? void 0 : containerAlert.classList.remove(`alert-${color}`);
+    });
+    if (!color) {
+        containerAlert === null || containerAlert === void 0 ? void 0 : containerAlert.classList.add(`alert-secondary`);
+        console.log("chegou aqui");
+    }
+    else {
+        containerAlert === null || containerAlert === void 0 ? void 0 : containerAlert.classList.add(`alert-${color}`);
+    }
+    if (timeOut) {
+        btnClose === null || btnClose === void 0 ? void 0 : btnClose.classList.add("d-none");
+        setTimeout(() => {
+            alertBox === null || alertBox === void 0 ? void 0 : alertBox.classList.add("d-none");
+            containerAlert === null || containerAlert === void 0 ? void 0 : containerAlert.classList.remove(`alert-${color}`);
+        }, timeOut);
+    }
 }
 function manterLogado() {
     if (checkbox.checked) {

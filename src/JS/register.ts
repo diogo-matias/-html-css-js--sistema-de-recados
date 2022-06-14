@@ -5,6 +5,39 @@ formRegister.addEventListener("submit", registrar);
 
 let usuariosBD = JSON.parse(localStorage.getItem("usuarios") || "[]");
 
+function myAlert(message: string, color?: string, timeOut?: number) {
+  if (!message) {
+    return;
+  }
+
+  const alertBox = document.getElementById("alert-box");
+  const containerAlert = document.getElementById("alert-container");
+  const alertTextContent = document.getElementById("alert-text-content");
+  const btnClose = document.getElementById("btn-close");
+
+  alertBox?.classList.remove("d-none");
+  alertTextContent!.textContent = message;
+
+  btnClose?.addEventListener("click", () => {
+    alertBox?.classList.add("d-none");
+    containerAlert?.classList.remove(`alert-${color}`);
+  });
+
+  if (!color) {
+    containerAlert?.classList.add(`alert-secondary`);
+  } else {
+    containerAlert?.classList.add(`alert-${color}`);
+  }
+
+  if (timeOut) {
+    btnClose?.classList.add("d-none");
+    setTimeout(() => {
+      alertBox?.classList.add("d-none");
+      containerAlert?.classList.remove(`alert-${color}`);
+    }, timeOut);
+  }
+}
+
 function registrar(event: any) {
   event.preventDefault();
 
@@ -13,7 +46,7 @@ function registrar(event: any) {
   const campoSenhaConfirmacao = formRegister.senha_confirmacao.value;
 
   if (campoSenha !== campoSenhaConfirmacao) {
-    alert("As senha nao conferem");
+    myAlert("As senhas não conferem", "danger", 1500);
     return;
   }
 
@@ -22,7 +55,7 @@ function registrar(event: any) {
   });
 
   if (usuarioJaCadastrado) {
-    alert("Usuario já cadastrado");
+    myAlert("Usuario já cadastrado", "danger", 1500);
     return;
   }
 
@@ -35,8 +68,10 @@ function registrar(event: any) {
   usuariosBD.push(usuarioCadastrado);
 
   localStorage.setItem("usuarios", JSON.stringify(usuariosBD));
-  alert("Usuario cadastrado com sucesso!");
-  location.href = "./login.html";
+  myAlert("Usuario cadastrado com sucesso!", "success", 1000);
+  setTimeout(() => {
+    location.href = "./login.html";
+  }, 1000);
 }
 
 function idUser(): any {

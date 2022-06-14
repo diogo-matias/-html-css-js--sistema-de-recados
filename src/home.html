@@ -4,66 +4,206 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+    crossorigin="anonymous"
+    />
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css"
+    /> 
     <link rel="stylesheet" href="./css/style.css" />
+    <!-- <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css" /> -->
+   
     <title>Sistema de Recados</title>
+
   </head>
-  <body class="body_home">
-    <div class="backgound">
-      <div id="bg"></div>
-
-    </div>
-  
-    <div class="logout">
-      <a href="./login.html">Logout</a>
-
-    </div>
-
-  <div>
-    <section class="home_section_principal" id="sectionPrincipal">
-      <h1 class="titulo_meus_recados">Meus Recados</h1>
-
-      <form class="adicionar_info">
-        <input
-          class="input_info"
-          type="text"
-          name="addDescricao"
-          id="addDescricao"
-          placeholder="Descrição"
-          />
-          <div>
-            <input
-            class="input_info"
-            type="text"
-            name="addDetalhamento"
-            id="addDetalhamento"
-            placeholder="Detalhamento"
-          />
-
-          <input type="submit" value="Salvar" id="btnSalvar" name="btnSalvar" class="btnSalvar"/>
+  <body class="bg-dark">
+  <!-- ALERT -->
+    <div class="container-fluid">
+      <div class="container-alert d-none" id="alert-box">
+        <div
+          class="alert alert-dismissible fade show"
+          role="alert"
+          id="alert-container"
+        >
+          <div id="alert-text-content"></div>
+          <button
+            type="button"
+            class="btn-close"
+            id="btn-close"
+            aria-label="Close"
+          ></button>
         </div>
-      </form>
-      <br />
-      <div class="tabela_div"></div>
-      <table class="tabela" id="tabela">
-        <tr class="primeira_linha_tabela" id="linha_1">
-          <td style="width: 5vw">#</td>
-          <td style="width: 20vw">Descrição</td>
-          <td style="width: 30vw">Detalhamento</td>
-          <td style="width: 15vw">Ação</td>
-        </tr>
-        <tr class="linha">
-
-
-      </table>
+      </div>
     </div>
 
+    <div>
+    </div>
+    <div class="container-fluid bg-primary py-md-5 py-3 bg-image">
+    <button id="logoutButton" class="btn btn-secondary" onclick="logout()"> 
+    
+      <i class="bi bi-box-arrow-left"></i>
+    </button>
+    
+    <div id="confirmSpace"></div>
 
-    <div class="dados-pessoais">
-      <div>
-        <img src="" alt="">
+    <section >
+      <div class="container">
+        <h1 class="h1 titulo ms-3">Meus Recados</h1>
+        <div>
+          <form id="formInformacoes" class="p-4 container-add-info">
+            <div class="row">
+              <div class="col-12 col-md-5">
+                <input
+                  type="text"
+                  placeholder="Descrição"
+                  class="fs-6 form-control"
+                  id="addDescricao"
+                />
+              </div>
+              <div class="col-12 col-md-7 mt-md-0 mt-3">
+                <div class="row">
+                  <div class="col-9">
+                    <input
+                      type="text"
+                      placeholder="Detalhamento"
+                      class="form-control"
+                      id="addDetalhamento"
+                    />
+                  </div>
+                  <div class="col-3">
+                    <button class="btn btn-success" style="width: 100%">
+                      <span class="txt-button-salvar">Enviar</span>
+                      <i class="bi bi-bookmark-check" id="saveIcon"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+      <div class="container mt-5">
+        <div class="container-fluid">
+          <table class="table table-borderless fs-6" id="tabela">
+            <thead class="centralizar">
+              <tr class="linha" id="linha_1">
+                
+                <td >#</td>
+                <td >Descrição</td>
+                <td class="table-fist-line-detalhamento">Detalhamento</td>
+
+                <td class="table-fist-line-mais-info">Mais informações</td>
+                <td class="table-fist-line-acao">Ação</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="linha">
+                <td>1</td>
+                <td>
+                  <input
+                    value=""
+                    disabled
+                  />
+                </td>
+                <td class="detalhamento_input">
+                  <input value="Stories do instagram" disabled />
+                </td>
+                <td class="buttons-td">
+                  <button
+                    class="btn editar"
+                    id="btnEditar"
+                    style="background-color: #198754; color: white"
+                    ;
+                    name="${linha.id}"
+                  >
+                    Editar
+                  </button>
+                  <button
+                    class="btn apagar"
+                    style="background-color: #dc3545; color: white"
+                    name="${linha.id}"
+                  >
+                    Deletar
+                  </button>
+                </td>
+
+                <td class="more-info-button d-flex">
+                  <button class="btn btn-success" style="min-width: 80px">
+                    <span class="button-span">Mais informações</span>
+                    <i class="bi bi-info-circle"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <div id="modalSpace">
+      <div
+        class="modal fade"
+        id="myModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" style="color: black">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label"
+                    >Recipient:</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="recipient-name"
+                    value="opa"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label"
+                    >Message:</label
+                  >
+                  <textarea class="form-control" id="message-text"> </textarea>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="button" class="btn btn-primary">
+                Send message
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
     <script src="./JS/home.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
   </body>
 </html>

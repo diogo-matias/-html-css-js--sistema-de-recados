@@ -15,19 +15,48 @@ function logar(event: any) {
     return usuario.usuario === campoUsuario && usuario.senha === campoSenha;
   });
 
-  if (usuariosCadastrados === []) {
-    alert("Não existe nenhum usuário cadastrado");
-    location.href = "./nova-conta.html";
-  }
-
   if (!usuarioEncontrado) {
-    alert("usuario não encontrado");
+    showAlert("Usuário ou senha inválidos", "danger", 1500);
     return;
   }
 
   location.href = "./home.html";
 
   localStorage.setItem("ultimoLogin", JSON.stringify(usuarioEncontrado));
+}
+
+function showAlert(message: string, color?: string, timeOut?: number) {
+  if (!message) {
+    return;
+  }
+
+  const alertBox = document.getElementById("alert-box");
+  const containerAlert = document.getElementById("alert-container");
+  const alertTextContent = document.getElementById("alert-text-content");
+  const btnClose = document.getElementById("btn-close");
+
+  alertBox?.classList.remove("d-none");
+  alertTextContent!.textContent = message;
+
+  btnClose?.addEventListener("click", () => {
+    alertBox?.classList.add("d-none");
+    containerAlert?.classList.remove(`alert-${color}`);
+  });
+
+  if (!color) {
+    containerAlert?.classList.add(`alert-secondary`);
+    console.log("chegou aqui");
+  } else {
+    containerAlert?.classList.add(`alert-${color}`);
+  }
+
+  if (timeOut) {
+    btnClose?.classList.add("d-none");
+    setTimeout(() => {
+      alertBox?.classList.add("d-none");
+      containerAlert?.classList.remove(`alert-${color}`);
+    }, timeOut);
+  }
 }
 
 function manterLogado() {

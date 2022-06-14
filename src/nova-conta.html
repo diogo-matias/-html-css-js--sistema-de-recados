@@ -4,65 +4,102 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+
     <link rel="stylesheet" href="./css/style.css" />
+
     <title>Criar Conta</title>
   </head>
-  <body class="fundo-2">
-    <section class="section-principal background-registro">
-      <section class="caixa-nova-conta">
-        <div>
-          <p class="criar">Criar</p>
-          <h1 class="nova-conta">NOVA CONTA</h1>
+  <body>
+    <div class="container-fluid">
+      <div class="container-alert d-none" id="alert-box">
+        <div
+          class="alert alert-dismissible fade show"
+          role="alert"
+          id="alert-container"
+        >
+          <div id="alert-text-content"></div>
+          <button
+            type="button"
+            class="btn-close"
+            id="btn-close"
+            aria-label="Close"
+          ></button>
         </div>
+      </div>
+    </div>
 
-        <form class="caixa-nova-conta" id="form-register">
-          <label for="usuario">
-            <input
-              required
-              name="usuario"
-              class="usuario-senha registro"
-              type="text"
-              id="usuario-registro"
-              class="usuario"
-              placeholder="Usuário"
-            />
-          </label>
-          <label for="senha">
-            <input
-              required
-              name="senha"
-              class="usuario-senha registro"
-              type="password"
-              id="password-registro"
-              class="password"
-              placeholder="Senha"
-            />
-          </label>
-          <label for="confirmar-senha">
-            <input
-              required
-              name="senha_confirmacao"
-              class="usuario-senha registro"
-              type="password"
-              id="password"
-              class="password"
-              placeholder="Confirmar Senha"
-            />
-          </label>
+    <section
+      class="container-fluid section-principal background-registro vh-100"
+      style="overflow: hidden"
+    >
+      <div class="row container-form-registro">
+        <div class="col-12">
+          <section>
+            <div class="row">
+              <div class="col-10 col-sm-8 col-md-6 mx-auto">
+                <div>
+                  <p class="criar">Criar</p>
+                  <h1 class="nova-conta fw-bold">NOVA CONTA</h1>
+                </div>
 
-          <input
-            class="botao botao-registro"
-            type="submit"
-            name="Registrar"
-            id="Registrar"
-            value="CRIAR NOVA CONTA"
-          />
-        </form>
+                <form class="caixa-nova-conta form-register" id="form-register">
+                  <input
+                    required
+                    name="usuario"
+                    class="usuario-senha registro"
+                    type="text"
+                    id="usuario-registro"
+                    placeholder="Usuário"
+                  />
 
-        <a href="./login.html"> < voltar ao inicio</a>
-      </section>
+                  <input
+                    required
+                    name="senha"
+                    class="usuario-senha registro mt-2"
+                    type="password"
+                    id="password-registro"
+                    placeholder="Senha"
+                  />
+
+                  <input
+                    required
+                    name="senha_confirmacao"
+                    class="usuario-senha registro mt-2"
+                    type="password"
+                    id="password"
+                    class="password"
+                    placeholder="Confirmar Senha"
+                  />
+
+                  <input
+                    class="botao botao-registro mb-2"
+                    type="submit"
+                    name="Registrar"
+                    id="Registrar"
+                    value="CRIAR NOVA CONTA"
+                  />
+                  <a href="./login.html" class="text-white">
+                    < voltar ao inicio</a
+                  >
+                </form>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
     </section>
 
     <script src="./JS/register.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>

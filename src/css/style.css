@@ -22,7 +22,7 @@ body {
   align-items: center;
   justify-content: center;
 
-  height: 100vh;
+  /* height: 100vh; */
 }
 
 .campo-login {
@@ -32,10 +32,11 @@ body {
   justify-content: center;
 
   /* background-color: rgba(0, 0, 0, 0.5); */
-  width: 500px;
-  height: 400px;
 
   border-radius: 15px;
+  animation-name: transition;
+  animation-duration: 0.7s;
+  animation-timing-function: cubic-bezier();
 }
 
 .titulo {
@@ -43,13 +44,13 @@ body {
 }
 
 .titulo p {
-  font-size: 30px;
+  /* font-size: 1.7rem; */
   font-weight: 200;
 }
 
 .titulo h1 {
   margin-top: -19px;
-  font-size: 40px;
+  /* font-size: 2.5rem;                        */
   text-transform: uppercase;
   font-weight: 700;
   letter-spacing: -2px;
@@ -64,14 +65,15 @@ input::placeholder {
   color: rgb(36, 36, 36, 0.7);
 }
 
-.form {
-  display: flex;
-  gap: 10px;
+.form-login {
+  width: auto;
 }
 
 .usuario-senha {
   height: 40px;
-  width: 50%;
+
+  /*
+  width: 50%;*/
   padding: 0 15px;
 
   border-radius: 12px;
@@ -79,13 +81,24 @@ input::placeholder {
   outline: none;
 }
 
+#teste123 {
+  position: relative;
+  display: flex;
+}
+
+.form-register {
+  width: auto;
+}
+
 #olho-senha {
   height: 25px;
+  width: 25px;
+
   position: absolute;
   z-index: 1;
-  align-self: center;
-  margin-left: 350px;
   opacity: 0.65;
+  right: 20px;
+  top: 20%;
 }
 #olho-senha:hover {
   background-color: rgb(169, 224, 255);
@@ -162,14 +175,6 @@ a {
   background-color: #1dadff;
 }
 
-.caixa-nova-conta {
-  width: 450px;
-
-  gap: 10px;
-  display: flex;
-  flex-direction: column;
-}
-
 .caixa-nova-conta a {
   color: hsl(151, 100%, 56%);
 }
@@ -181,7 +186,8 @@ a {
 
 .botao-registro {
   margin-top: 25px;
-  background-color: #1dff92;
+  /* background-color: #1dff92; */
+  background-color: #00dd72;
   height: 45px;
   font-size: 18px;
 }
@@ -204,93 +210,22 @@ a {
 
 .background-registro {
   background-image: url(../images/fundo-registro.png);
+  /* background-size: cover; */
 }
 
 /* PÁGINA PRINCIPAL (HOME) */
-/* ///////////////////////////////////////////////////////////////////////////////////////////// */
-
-.body_home {
-  background-color: #1d1d1d;
-  color: rgb(223, 223, 223);
-}
-
-.backgound {
+#logoutButton {
   position: absolute;
-  z-index: -1;
-  margin-top: -50px;
-
-  height: 300px;
-  width: 100%;
-  background-color: #1dff92;
-
-  background: url("../images/paisagem.png");
-  background-position: 0 -250px;
-  background-size: cover;
-  background-repeat: no-repeat;
+  right: 25px;
+  top: 7px;
 }
 
-.home_section_principal {
-  margin: 50px auto;
-  display: flex;
-  flex-direction: column;
-  /* background-color: rgb(243, 243, 243); */
-  width: 80vw;
-  align-items: center;
-  border-radius: 10px;
+.more-info-button {
+  display: none;
 }
 
-.titulo_meus_recados {
-  color: white;
-  align-self: flex-start;
-  font-size: 40px;
-  margin-left: 110px;
-  margin-top: 40px;
-  margin-bottom: -60px;
-  font-weight: 100;
-}
-
-.adicionar_info {
-  /* position: fixed; */
-  justify-content: space-around;
-
-  height: 80px;
-  width: 70vw;
-  display: flex;
-  align-items: center;
-
-  margin-top: 70px;
-  margin-bottom: 60px;
-  background-color: rgb(36, 36, 36, 0.8);
-  border-radius: 10px;
-  box-shadow: 0px 4px 10px rgb(5, 5, 5, 0.6);
-}
-
-.adicionar_info input {
-  height: 35px;
-  padding: 0 20px;
-}
-
-.input_info {
-  width: 25vw;
-  border-radius: 5px;
-  border: none;
-}
-table {
-  /* background-color: rgb(26, 26, 26); */
-  border-radius: 10px;
-}
-
-tr {
-  height: 50px;
-}
-
-.linha {
-  border-spacing: 0;
-  border: none;
-}
-
-.primeira_linha_tabela {
-  box-shadow: 0 2px 2px rgb(0, 0, 0, 0.2);
+.table-fist-line-mais-info {
+  display: none;
 }
 
 .input {
@@ -314,8 +249,6 @@ tr {
 }
 
 .btn {
-  height: 30px;
-  width: 40%;
   border-radius: 5px;
   border: none;
   cursor: pointer;
@@ -350,7 +283,8 @@ tr {
   justify-content: center;
   position: fixed;
   z-index: 1;
-  margin-top: -50px;
+  top: 0;
+  left: 0;
 
   height: 100%;
   width: 100%;
@@ -389,26 +323,116 @@ tr {
   color: #3b3b3b;
 }
 
-.red-bg {
-  background-color: rgb(204, 70, 70);
+.bg-image {
+  background: url("../images/paisagem.png");
+  background-size: cover;
+  background-position: 0;
 }
 
-.green-bg {
-  background-color: rgb(39, 177, 103);
+.linha {
+  color: white;
 }
 
-.logout {
-  position: absolute;
-  z-index: 10;
-  right: 3rem;
-  top: 2rem;
-  background-color: rgb(29, 29, 29, 0.5);
-  padding: 0.5rem 1rem;
+.titulo {
+  font-weight: 100;
+}
+
+.container-add-info {
+  border-radius: 20px;
+  background-color: rgb(19, 19, 19, 0.6);
+  box-shadow: 0px 8px 8px rgb(14, 14, 14, 0.4);
+}
+
+.table-fist-line {
+  box-shadow: 0px 5px 5px rgb(29, 29, 29);
   border-radius: 5px;
 }
 
-.logout:hover {
-  transition: all 0.6s;
-  cursor: pointer;
-  background-color: rgb(29, 29, 29, 0.8);
+.centralizar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+:root {
+  --bs-dark-transparent: rgba(22, 22, 22, 0.97);
+}
+
+.bg-dark-trasnparent {
+  background-color: var(--bs-dark-transparent);
+}
+
+.container-alert {
+  position: fixed;
+  height: 20vh;
+  width: 100vw;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container-form-registro {
+  animation-name: transition;
+  animation-duration: 0.7s;
+  animation-timing-function: cubic-bezier(s);
+}
+
+@media (max-width: 630px) {
+  /* #tabela {
+    background-color: black;
+  } */
+  .detalhamento_input {
+    display: none;
+  }
+
+  .button-span {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .txt-button-salvar {
+    display: none;
+  }
+  #saveIcon {
+    display: block;
+  }
+
+  .buttons-td {
+    display: none;
+  }
+
+  .table-fist-line-acao {
+    display: none;
+  }
+
+  .table-fist-line-detalhamento {
+    display: none;
+  }
+  .table-fist-line-mais-info {
+    display: block;
+  }
+
+  .detalhamento_input {
+    display: none;
+  }
+
+  .more-info-button {
+    display: flex;
+
+    justify-content: center;
+  }
+}
+
+@keyframes transition {
+  0% {
+    transform: translateX(30px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }

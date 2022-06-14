@@ -4,69 +4,117 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+
     <link rel="stylesheet" href="./css/style.css" />
     <title>SR Login</title>
   </head>
   <body>
-    <section class="section-principal">
-      <div class="campo-login">
-        <div class="titulo">
-          <p>Entrar no</p>
-          <h1>Sistema de recados</h1>
+    <div class="container-fluid">
+      <div class="container-alert d-none" id="alert-box">
+        <div
+          class="alert alert-dismissible fade show"
+          role="alert"
+          id="alert-container"
+        >
+          <div id="alert-text-content"></div>
+          <button
+            type="button"
+            class="btn-close"
+            id="btn-close"
+            aria-label="Close"
+          ></button>
         </div>
-        <div>
-          <form id="form-login">
-            <div class="form">
-              <input
-                required
-                name="usuario"
-                class="usuario-senha"
-                type="text"
-                id="usuario"
-                class="usuario"
-                placeholder="Usuário"
-              />
+      </div>
+    </div>
+    <section class="container-fluid" style="overflow: hidden">
+      <div class="section-principal row vh-100">
+        <div class="col-12">
+          <div class="campo-login mx-3">
+            <div>
+              <form id="form-login">
+                <div class="col-12">
+                  <div class="titulo align-self-start'">
+                    <p class="fs-3">Entrar no</p>
+                    <h1 class="h1">Sistema de recados</h1>
+                  </div>
+                  <div class="form col-12">
+                    <div class="row">
+                      <div class="col-12 col-sm-6">
+                        <input
+                          required
+                          name="usuario"
+                          class="usuario-senha form-control fs-6"
+                          type="text"
+                          id="usuario"
+                          class="usuario"
+                          placeholder="Usuário"
+                        />
+                      </div>
 
-              <input
-                required
-                name="senha"
-                class="usuario-senha"
-                type="password"
-                id="senha"
-                class="senha"
-                placeholder="Digite a senha"
-              />
-              <img id="olho-senha" src="./images/olho.png" alt="" />
+                      <div
+                        class="col-12 col-sm-6 mt-2 mt-sm-0 position-relative"
+                      >
+                        <img
+                          id="olho-senha"
+                          src="./images/olho.png"
+                          alt=""
+                          class=""
+                        />
+                        <input
+                          required
+                          name="senha"
+                          class="form-control usuario-senha fs-6"
+                          type="password"
+                          id="senha"
+                          class="senha"
+                          placeholder="Digite a senha"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <input
+                  class="botao"
+                  type="submit"
+                  name="entrar"
+                  id="entrar"
+                  value="Entrar"
+                />
+              </form>
+              <div class="quadradinho">
+                <input
+                  class="checkbox"
+                  type="checkbox"
+                  name="quadradim"
+                  id="quadradim"
+                />
+                <label for="quadradim"> Manter conectado</label>
+              </div>
+              <section class="ou">
+                <div class="risco1"></div>
+                <span>OU</span>
+                <div class="risco2"></div>
+              </section>
+
+              <button id="btnCriarConta" class="botao">Criar nova conta</button>
             </div>
-
-            <input
-              class="botao"
-              type="submit"
-              name="entrar"
-              id="entrar"
-              value="Entrar"
-            />
-          </form>
-          <div class="quadradinho">
-            <input
-              class="checkbox"
-              type="checkbox"
-              name="quadradim"
-              id="quadradim"
-            />
-            <label for="quadradim"> Manter conectado</label>
           </div>
-          <section class="ou">
-            <div class="risco1"></div>
-            <span>OU</span>
-            <div class="risco2"></div>
-          </section>
-
-          <button id="btnCriarConta" class="botao">Criar nova conta</button>
         </div>
       </div>
     </section>
 
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"
+    ></script>
     <script src="./JS/login.js"></script>
   </body>
 </html>
